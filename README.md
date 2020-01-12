@@ -16,3 +16,5 @@ ln -s \
   /usr/local/Cellar/freeimage/3.18.0/lib/libfreeimage.3.18.0.dylib \
   ~/.nuget/packages/monogame.content.builder/3.7.0.4/build/MGCB/build/libfreeimage.dylib
 ```
+
+For detailed setup step: http://kflu.github.io/2020/01/12/2020-01-12-monogame-on-mac/
