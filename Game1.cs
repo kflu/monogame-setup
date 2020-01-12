@@ -9,6 +9,8 @@ namespace game
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D ballTexture;
+        Vector2 ballPosition;
+        float ballSpeed;
 
         public Game1()
         {
@@ -20,6 +22,8 @@ namespace game
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            ballPosition = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
+            ballSpeed = 100f;
 
             base.Initialize();
         }
@@ -38,6 +42,20 @@ namespace game
                 Exit();
 
             // TODO: Add your update logic here
+            var kstate = Keyboard.GetState();
+
+            if (kstate.IsKeyDown(Keys.Right))
+                ballPosition.X += ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (ballPosition.X > graphics.PreferredBackBufferWidth - ballTexture.Width / 2)
+                ballPosition.X = graphics.PreferredBackBufferWidth - ballTexture.Width / 2;
+            else if (ballPosition.X < ballTexture.Width / 2)
+                ballPosition.X = ballTexture.Width / 2;
+
+            if (ballPosition.Y > graphics.PreferredBackBufferHeight - ballTexture.Height / 2)
+                ballPosition.Y = graphics.PreferredBackBufferHeight - ballTexture.Height / 2;
+            else if (ballPosition.Y < ballTexture.Height / 2)
+                ballPosition.Y = ballTexture.Height / 2;
 
             base.Update(gameTime);
         }
@@ -48,7 +66,7 @@ namespace game
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            spriteBatch.Draw(ballTexture, new Vector2(0,0), Color.White);
+            spriteBatch.Draw(ballTexture, ballPosition, Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
